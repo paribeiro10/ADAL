@@ -39,6 +39,7 @@ import com.massivedisaster.adal.connectivity.NetworkUtils;
 import com.massivedisaster.adal.fragment.BaseFragment;
 import com.massivedisaster.adal.sample.R;
 
+/** Connectivity Change Fragment meant to test the {@link ConnectionChangeReceiver} for connectivity changes. */
 public class FragmentConnectivityAware extends BaseFragment {
 
     private TextView mTxtMessage;
@@ -97,7 +98,10 @@ public class FragmentConnectivityAware extends BaseFragment {
         }
     }
 
-    /** Procedure meant to log the device Internet connectivity status. */
+    /**
+     * Procedure meant to log the device Internet connectivity status.
+     * @param isOnline boolean value indicating whether the device has a connection established or not.
+     */
     @SuppressLint("SetTextI18n") private void handleConnectivityStatusChange(final boolean isOnline) {
         if (isOnline) {
             mTxtMessage.setText(".: Device is online! :.");

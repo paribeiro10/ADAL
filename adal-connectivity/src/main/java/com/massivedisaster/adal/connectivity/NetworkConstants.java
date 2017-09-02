@@ -26,7 +26,7 @@
 package com.massivedisaster.adal.connectivity;
 
 /** Utility class meant to hold all constants for the Network sub module. */
-@SuppressWarnings({"unused", "WeakerAccess"}) public class NetworkConstants {
+@SuppressWarnings({"unused", "WeakerAccess"}) public final class NetworkConstants {
 
     /** ########## Misc. ########## */
     static final String LOG_TAG = "CADL-Network";

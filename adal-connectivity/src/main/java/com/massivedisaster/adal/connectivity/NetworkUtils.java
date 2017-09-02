@@ -30,7 +30,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /** Utility class for the Network sub module. */
-@SuppressWarnings({"unused", "WeakerAccess"}) public class NetworkUtils {
+@SuppressWarnings({"unused", "WeakerAccess"}) public final class NetworkUtils {
 
     public static final int TYPE_NOT_CONNECTED = 0;
     public static final int TYPE_WIFI = 1;

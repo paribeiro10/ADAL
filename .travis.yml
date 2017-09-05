@@ -36,3 +36,7 @@ before_script:
       fi
 script:
   - ./gradlew clean build connectedCheck -PdisablePreDex
+
+after_script:
+  - echo $TRAVIS_BUILD_DIR
+  - if test -e $TRAVIS_BUILD_DIR/paribeiro10/ADAL/adal-connectivity/build/reports/pmd/pmd.html ; then cat $TRAVIS_BUILD_DIR/paribeiro10/ADAL/adal-connectivity/build/reports/pmd/pmd.html ; fi

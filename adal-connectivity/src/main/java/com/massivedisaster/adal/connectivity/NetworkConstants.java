@@ -29,18 +29,18 @@ package com.massivedisaster.adal.connectivity;
 @SuppressWarnings({"unused", "WeakerAccess"}) public final class NetworkConstants {
 
     /** ########## Misc. ########## */
-    static final String LOG_TAG = "CADL-Network";
+    protected static final String LOG_TAG = "CADL-Network";
 
     /** ########## Exception Messages ########## */
-    static final String ASSERTION_ERROR = "Instantiating utility class.";
+    protected static final String ASSERTION_ERROR = "Instantiating utility class.";
 
     /** ########## Error Messages ########## */
-    static final String INVALID_CONTEXT_INSTANCE = "::Invalid Context instance: ";
+    protected static final String INVALID_CONTEXT_INSTANCE = "::Invalid Context instance: ";
 
     /** ########## Information Messages ########## */
-    static final String CONNECTION_CHANGE_UNREGISTER_NOK = "::Unable to unregister receiver.";
-    static final String CONNECTION_CHANGE_UNREGISTER_OK = "::Unregistered receiver.";
-    static final String CONNECTION_CHANGE_REGISTER_OK = "::Registered receiver.";
+    protected static final String CONNECTION_CHANGE_UNREGISTER_NOK = "::Unable to unregister receiver.";
+    protected static final String CONNECTION_CHANGE_UNREGISTER_OK = "::Unregistered receiver.";
+    protected static final String CONNECTION_CHANGE_REGISTER_OK = "::Registered receiver.";
 
     /** Instantiates a new NetworkConstants. Private to prevent instantiation. */
     private NetworkConstants() {

@@ -25,7 +25,6 @@
 
 package com.massivedisaster.adal.sample.feature.connectivity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,12 +38,16 @@ import com.massivedisaster.adal.connectivity.NetworkUtils;
 import com.massivedisaster.adal.fragment.BaseFragment;
 import com.massivedisaster.adal.sample.R;
 
-/** Connectivity Change Fragment meant to test the {@link ConnectionChangeReceiver} for connectivity changes. */
+/**
+ * Connectivity Change Fragment meant to test the {@link ConnectionChangeReceiver} for connectivity changes.
+ */
 public class FragmentConnectivityAware extends BaseFragment {
 
     private TextView mTxtMessage;
 
-    /** network verification */
+    /**
+     * Network verification.
+     */
     private ConnectionChangeReceiver mConnectionReceiver = new ConnectionChangeReceiver() {
         @Override public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
             if (ConnectionChangeReceiver.CONNECTIVITY_CHANGE_FILTER.equals(intent.getAction())) {
@@ -70,19 +73,25 @@ public class FragmentConnectivityAware extends BaseFragment {
         mTxtMessage = findViewById(R.id.txtMessage);
     }
 
-    /** Called when FragmentConnectivityAware is about to become visible. */
+    /**
+     * Called when FragmentConnectivityAware is about to become visible.
+     */
     @Override public void onStart() {
         super.onStart();
         mConnectionReceiver.registerConnectionChangeReceiver(getActivity());
     }
 
-    /** Called when the FragmentConnectivityAware has become visible. */
+    /**
+     * Called when the FragmentConnectivityAware has become visible.
+     */
     @Override public void onResume() {
         super.onResume();
         checkConnectivity();
     }
 
-    /** Called just before the FragmentConnectivityAware is destroyed. */
+    /**
+     * Called just before the FragmentConnectivityAware is destroyed.
+     */
     @Override public void onDestroy() {
         if (mConnectionReceiver != null) {
             mConnectionReceiver.unregisterConnectionChangeReceiver();
@@ -90,7 +99,9 @@ public class FragmentConnectivityAware extends BaseFragment {
         super.onDestroy();
     }
 
-    /** Procedure meant to check whether the device has Internet connectivity or not. */
+    /**
+     * Check whether the device has Internet connectivity or not.
+     */
     private void checkConnectivity() {
         if (!getActivity().isFinishing() && isVisible()) {
             final boolean isOnline = NetworkUtils.isNetworkConnected(getActivity());
@@ -99,16 +110,17 @@ public class FragmentConnectivityAware extends BaseFragment {
     }
 
     /**
-     * Procedure meant to log the device Internet connectivity status.
+     * Log the device Internet connectivity status.
+     *
      * @param isOnline boolean value indicating whether the device has a connection established or not.
      */
-    @SuppressLint("SetTextI18n") private void handleConnectivityStatusChange(final boolean isOnline) {
+    private void handleConnectivityStatusChange(final boolean isOnline) {
         if (isOnline) {
-            mTxtMessage.setText(".: Device is online! :.");
-            Log.d(getActivity().getClass().getName(), ".: Device is online! :.");
+            mTxtMessage.setText(getString(R.string.connectivity_device_online));
+            Log.d(getActivity().getClass().getName(), getString(R.string.connectivity_device_online));
         } else {
-            mTxtMessage.setText(".: Device is offline! :.");
-            Log.d(getActivity().getClass().getName(), ".: Device is offline! :.");
+            mTxtMessage.setText(getString(R.string.connectivity_device_offline));
+            Log.d(getActivity().getClass().getName(), getString(R.string.connectivity_device_offline));
         }
     }
 

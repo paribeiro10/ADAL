@@ -39,4 +39,4 @@ script:
 
 after_script:
   - echo $TRAVIS_BUILD_DIR
-  - if test -e $TRAVIS_BUILD_DIR/adal-connectivity/build/reports/pmd/pmd.html ; then cat $TRAVIS_BUILD_DIR/adal-connectivity/build/reports/pmd/pmd.html ; fi
+  - if test -e $TRAVIS_BUILD_DIR/adal-connectivity/build/reports/checkstyle/checkstyle.html ; then cat $TRAVIS_BUILD_DIR/adal-connectivity/build/reports/checkstyle/checkstyle.html ; fi

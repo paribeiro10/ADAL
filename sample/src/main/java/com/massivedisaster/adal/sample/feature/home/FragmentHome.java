@@ -72,6 +72,7 @@ public class FragmentHome extends BaseFragment {
 
     @Override
     protected void doOnCreated() {
+
         if (((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
             ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }

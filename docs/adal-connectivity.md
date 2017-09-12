@@ -19,6 +19,7 @@ dependencies {
 public class FragmentConnectivityAware extends BaseFragment implements View.OnClickListener {
 
     private TextView mTxtMessage;
+    private Button mCheckConnectivityButton;
 
     /**
      * Network verification.
@@ -46,6 +47,7 @@ public class FragmentConnectivityAware extends BaseFragment implements View.OnCl
     @Override protected void doOnCreated() {
         getActivity().setTitle(R.string.sample_network);
         mTxtMessage = findViewById(R.id.txtMessage);
+        mCheckConnectivityButton = findViewById(R.id.btnCheckConnectivity);
     }
 
     /**
@@ -54,6 +56,7 @@ public class FragmentConnectivityAware extends BaseFragment implements View.OnCl
     @Override public void onStart() {
         super.onStart();
         mConnectionReceiver.registerConnectionChangeReceiver(getActivity());
+        mCheckConnectivityButton.setOnClickListener(this);
     }
 
     /**
@@ -79,7 +82,7 @@ public class FragmentConnectivityAware extends BaseFragment implements View.OnCl
      * @param view the clicked {@link View}.
      */
     @Override public void onClick(View view) {
-        if (view.getId() == R.id.btnCheckConnectivity) {
+        if (R.id.btnCheckConnectivity == view.getId()) {
             checkConnectivity();
         }
     }
@@ -107,6 +110,7 @@ public class FragmentConnectivityAware extends BaseFragment implements View.OnCl
     }
 
 }
+
 ```
 
 ### Contributing

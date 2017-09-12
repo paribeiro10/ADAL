@@ -35,6 +35,7 @@ dependencies {
 - [adal-analytics](docs/adal-analytics.md)
 - [adal-application-state](docs/adal-application-state.md)
 - [adal-bus](docs/adal-bus.md)
+- [adal-connectivity](docs/adal-connectivity.md)
 - [adal-fragments](docs/adal-fragments.md)
 - [adal-location](docs/adal-location.md)
 - [adal-network](docs/adal-network.md)

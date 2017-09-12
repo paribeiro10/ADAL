@@ -82,4 +82,5 @@
 
     <string name="connectivity_device_online">.: Device is online! :.</string>
     <string name="connectivity_device_offline">.: Device is offline! :.</string>
+    <string name="check_connectivity">Check Connectivity</string>
 </resources>

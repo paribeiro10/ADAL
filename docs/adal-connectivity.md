@@ -1,5 +1,5 @@
 # adal-connectivity
-Android library to verify if the device has an Internet connection and what it's type is!
+Android library to verify if the device has an Internet connection and what type it is!
 
 ### Download
 
@@ -14,39 +14,98 @@ dependencies {
 
 ```java
 /**
- * Network verification.
+ * Connectivity Change Fragment meant to test the {@link ConnectionChangeReceiver} for connectivity changes.
  */
-private ConnectionChangeReceiver mConnectionReceiver = new ConnectionChangeReceiver() {
-    @Override public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
-        if (ConnectionChangeReceiver.CONNECTIVITY_CHANGE_FILTER.equals(intent.getAction())) {
+public class FragmentConnectivityAware extends BaseFragment implements View.OnClickListener {
+
+    private TextView mTxtMessage;
+
+    /**
+     * Network verification.
+     */
+    private ConnectionChangeReceiver mConnectionReceiver = new ConnectionChangeReceiver() {
+        @Override public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
+            if (ConnectionChangeReceiver.CONNECTIVITY_CHANGE_FILTER.equals(intent.getAction())) {
+                checkConnectivity();
+            }
+        }
+    };
+
+    @Override protected void getFromBundle(Bundle bundle) {
+        // Intended.
+    }
+
+    @Override protected int layoutToInflate() {
+        return R.layout.fragment_connectivity_aware;
+    }
+
+    @Override protected void restoreInstanceState(@Nullable Bundle savedInstanceState) {
+        // Intended.
+    }
+
+    @Override protected void doOnCreated() {
+        getActivity().setTitle(R.string.sample_network);
+        mTxtMessage = findViewById(R.id.txtMessage);
+    }
+
+    /**
+     * Called when FragmentConnectivityAware is about to become visible.
+     */
+    @Override public void onStart() {
+        super.onStart();
+        mConnectionReceiver.registerConnectionChangeReceiver(getActivity());
+    }
+
+    /**
+     * Called when the FragmentConnectivityAware has become visible.
+     */
+    @Override public void onResume() {
+        super.onResume();
+        checkConnectivity();
+    }
+
+    /**
+     * Called just before the FragmentConnectivityAware is destroyed.
+     */
+    @Override public void onDestroy() {
+        if (mConnectionReceiver != null) {
+            mConnectionReceiver.unregisterConnectionChangeReceiver();
+        }
+        super.onDestroy();
+    }
+
+    /**
+     * Called when a view has been clicked.
+     * @param view the clicked {@link View}.
+     */
+    @Override public void onClick(View view) {
+        if (view.getId() == R.id.btnCheckConnectivity) {
             checkConnectivity();
         }
     }
-};
 
-/**
- * Check whether the device has Internet connectivity or not.
- */
-private void checkConnectivity() {
-    if (!getActivity().isFinishing() && isVisible()) {
-        final boolean isOnline = NetworkUtils.isNetworkConnected(getActivity());
-        handleConnectivityStatusChange(isOnline);
+    /**
+     * Check whether the device has Internet connectivity or not.
+     */
+    private void checkConnectivity() {
+        if (isVisible()) {
+            final boolean isOnline = NetworkUtils.isNetworkConnected(getActivity());
+            handleConnectivityStatusChange(isOnline);
+        }
     }
-}
 
-/**
- * Log the device Internet connectivity status.
- *
- * @param isOnline boolean value indicating whether the device has a connection established or not.
- */
-private void handleConnectivityStatusChange(final boolean isOnline) {
-    if (isOnline) {
-        mTxtMessage.setText(getString(R.string.connectivity_device_online));
-        Log.d(getActivity().getClass().getName(), getString(R.string.connectivity_device_online));
-    } else {
-        mTxtMessage.setText(getString(R.string.connectivity_device_offline));
-        Log.d(getActivity().getClass().getName(), getString(R.string.connectivity_device_offline));
+    /**
+     * Log the device Internet connectivity status.
+     *
+     * @param isOnline boolean value indicating whether the device has a connection established or not.
+     */
+    private void handleConnectivityStatusChange(final boolean isOnline) {
+        final String deviceConnectivity = isOnline ? getString(R.string.connectivity_device_online)
+                : getString(R.string.connectivity_device_offline);
+        mTxtMessage.setText(deviceConnectivity);
+        Toast.makeText(getActivity(), deviceConnectivity, Toast.LENGTH_SHORT).show();
     }
+
 }
 ```
 

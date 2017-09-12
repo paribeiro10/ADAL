@@ -30,8 +30,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.massivedisaster.adal.connectivity.ConnectionChangeReceiver;
 import com.massivedisaster.adal.connectivity.NetworkUtils;
@@ -41,7 +42,7 @@ import com.massivedisaster.adal.sample.R;
 /**
  * Connectivity Change Fragment meant to test the {@link ConnectionChangeReceiver} for connectivity changes.
  */
-public class FragmentConnectivityAware extends BaseFragment {
+public class FragmentConnectivityAware extends BaseFragment implements View.OnClickListener {
 
     private TextView mTxtMessage;
 
@@ -100,10 +101,20 @@ public class FragmentConnectivityAware extends BaseFragment {
     }
 
     /**
+     * Called when a view has been clicked.
+     * @param view the clicked {@link View}.
+     */
+    @Override public void onClick(View view) {
+        if (R.id.btnCheckConnectivity == view.getId()) {
+            checkConnectivity();
+        }
+    }
+
+    /**
      * Check whether the device has Internet connectivity or not.
      */
     private void checkConnectivity() {
-        if (!getActivity().isFinishing() && isVisible()) {
+        if (isVisible()) {
             final boolean isOnline = NetworkUtils.isNetworkConnected(getActivity());
             handleConnectivityStatusChange(isOnline);
         }
@@ -115,13 +126,10 @@ public class FragmentConnectivityAware extends BaseFragment {
      * @param isOnline boolean value indicating whether the device has a connection established or not.
      */
     private void handleConnectivityStatusChange(final boolean isOnline) {
-        if (isOnline) {
-            mTxtMessage.setText(getString(R.string.connectivity_device_online));
-            Log.d(getActivity().getClass().getName(), getString(R.string.connectivity_device_online));
-        } else {
-            mTxtMessage.setText(getString(R.string.connectivity_device_offline));
-            Log.d(getActivity().getClass().getName(), getString(R.string.connectivity_device_offline));
-        }
+        final String deviceConnectivity = isOnline ? getString(R.string.connectivity_device_online)
+                : getString(R.string.connectivity_device_offline);
+        mTxtMessage.setText(deviceConnectivity);
+        Toast.makeText(getActivity(), deviceConnectivity, Toast.LENGTH_SHORT).show();
     }
 
 }

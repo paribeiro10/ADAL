@@ -1,4 +1,4 @@
-/*
+/**
  * ADAL - A set of Android libraries to help speed up Android development.
  *
  * Copyright (c) 2017 ADAL
@@ -28,7 +28,7 @@ package com.massivedisaster.adal.connectivity;
 /**
  * Utility class meant to hold all constants for the Network sub module.
  */
-@SuppressWarnings({"unused", "WeakerAccess"}) public final class NetworkConstants {
+public final class NetworkConstants {
 
     /**
      *  Misc. Constants.
